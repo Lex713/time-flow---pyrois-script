@@ -1,0 +1,61 @@
+include("SOVIETInstructions.txt");
+
+defineVariable(int, PreviousDay);
+defineVariable(int, CurrentDay);
+defineVariable(int, PreviousYear);
+defineVariable(int, CurrentYear);
+defineVariable(int, ContinueLoop);
+defineVariable(int, DayMultiplier);
+defineVariable(int, MaxMultiplier);
+
+defineVariable(int, MaxDay);
+
+defineVariable(char, scriptRunning);
+
+defineFunction(main, void)
+{
+	//If second script is running, kills it to prevent glitches.
+	Script_Exists("TimeFlow.txt", scriptRunning);
+	if(scriptRunning ? 1)
+	{
+		Script_DestroyByName("TimeFlow.txt");
+	}
+	
+	Date_GetCurrentDate_D365Y(CurrentDay, CurrentYear); //Set initial date
+
+	PreviousDay = CurrentDay;
+	PreviousYear = CurrentYear;
+	MaxDay = 364;
+	DayMultiplier = 0;
+	MaxMultiplier = 3; //Multiply calendar day length by X+1 times. Eg if X = 3, then day is 4 times longer, if x = 7, then day is 8 times longer etc etc.
+	
+	while (1 ? 1) {
+		Date_GetCurrentDate_D365Y(CurrentDay, CurrentYear);
+		if (PreviousDay < CurrentDay){
+			Date_SetCurrentDate_D365Y(PreviousDay, CurrentYear);
+			DayMultiplier = DayMultiplier + 1;
+			if (DayMultiplier ? MaxMultiplier){
+				PreviousDay = PreviousDay + 1;
+				DayMultiplier = 0;
+			}
+			else(){
+			}
+		}
+		else(){
+		}
+		if (PreviousYear < CurrentYear){
+			Date_SetCurrentDate_D365Y(PreviousDay, PreviousYear);
+			DayMultiplier = DayMultiplier + 1;
+			if (DayMultiplier ? MaxMultiplier){
+				PreviousYear = PreviousYear + 1;
+				PreviousDay = PreviousDay + 1;
+				DayMultiplier = 0;
+			}
+			else(){
+			}
+		}
+		else(){
+		}
+	}
+	end();
+}

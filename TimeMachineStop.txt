@@ -1,0 +1,18 @@
+include("SOVIETInstructions.txt");
+defineVariable(char, scriptRunning);
+defineVariable(char, scriptRunning2);
+
+defineFunction(main, void)
+{
+	Script_Exists("TimeFlow.txt", scriptRunning);
+	Script_Exists("TimeFlow2.txt", scriptRunning2);
+	if(scriptRunning ? 1)
+	{
+		Script_DestroyByName("TimeFlow.txt");
+	}
+	if(scriptRunning2 ? 1)
+	{
+		Script_DestroyByName("TimeFlow2.txt");
+	}
+	end();
+}

@@ -1,0 +1,41 @@
+include("SOVIETInstructions.txt");
+
+defineVariable(int, PreviousDay);
+defineVariable(int, CurrentDay);
+defineVariable(int, PreviousYear);
+defineVariable(int, CurrentYear);
+defineVariable(int, ContinueLoop);
+
+defineVariable(char, scriptRunning);
+
+defineFunction(main, void)
+{
+	//If second script is running, kills it to prevent glitches.
+	Script_Exists("TimeFlow2.txt", scriptRunning);
+	if(scriptRunning ? 1)
+	{
+		Script_DestroyByName("TimeFlow2.txt");
+	}
+	Date_GetCurrentDate_D365Y(CurrentDay, CurrentYear); //Set initial date
+
+	PreviousDay = CurrentDay;
+	PreviousYear = CurrentYear;
+	
+	while (1 ? 1) {
+		Date_GetCurrentDate_D365Y(CurrentDay, CurrentYear);
+		if (PreviousDay < CurrentDay){
+			Date_SetCurrentDate_D365Y(PreviousDay, CurrentYear);
+			PreviousDay = PreviousDay + 1;
+		}
+		else(){
+		}
+		if (PreviousYear < CurrentYear){
+			Date_SetCurrentDate_D365Y(PreviousDay, PreviousYear);
+			PreviousYear = PreviousYear + 1;
+			PreviousDay = PreviousDay + 1;
+		}
+		else(){
+		}
+	}
+	end();
+}
