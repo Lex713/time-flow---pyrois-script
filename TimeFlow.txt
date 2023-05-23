@@ -4,6 +4,7 @@ defineVariable(int, PreviousDay);
 defineVariable(int, CurrentDay);
 defineVariable(int, PreviousYear);
 defineVariable(int, CurrentYear);
+defineVariable(int, NextYear);
 defineVariable(int, ContinueLoop);
 
 defineVariable(char, scriptRunning);
@@ -16,25 +17,25 @@ defineFunction(main, void)
 	{
 		Script_DestroyByName("TimeFlow2.txt");
 	}
+	
+	
 	Date_GetCurrentDate_D365Y(CurrentDay, CurrentYear); //Set initial date
 
 	PreviousDay = CurrentDay;
 	PreviousYear = CurrentYear;
+	NextYear = CurrentYear + 1;
 	
 	while (1 ? 1) {
 		Date_GetCurrentDate_D365Y(CurrentDay, CurrentYear);
-		if (PreviousDay < CurrentDay){
-			Date_SetCurrentDate_D365Y(PreviousDay, CurrentYear);
-			PreviousDay = PreviousDay + 1;
+		if (!(CurrentDay ? 364)){
+			if (PreviousDay < CurrentDay){
+				Date_SetCurrentDate_D365Y(PreviousDay, CurrentYear);
+				PreviousDay = PreviousDay + 1;
+				CurrentDay = 0;
+			}
 		}
-		else(){
-		}
-		if (PreviousYear < CurrentYear){
-			Date_SetCurrentDate_D365Y(PreviousDay, PreviousYear);
-			PreviousYear = PreviousYear + 1;
-			PreviousDay = PreviousDay + 1;
-		}
-		else(){
+		elseif (CurrentDay ? 364){
+			PreviousDay = 0;
 		}
 	}
 	end();
